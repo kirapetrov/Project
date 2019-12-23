@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using DataLayer;
 using Microsoft.AspNetCore.Mvc;
-using ProjectService.Models;
+using ProjectService.DataTransferObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProjectService.Controllers
@@ -18,33 +18,33 @@ namespace ProjectService.Controllers
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult<User>> GetUser(string name)
+        public async Task<ActionResult<UserDto>> GetUser(string name)
         {
             var userEntity = await context.Users.FirstOrDefaultAsync(x => x.Name == name);
-            if(userEntity != null)
-                return new ActionResult<User>(new User(userEntity));
+            if (userEntity != null)
+                return new ActionResult<UserDto>(new UserDto(userEntity));
 
-            return NotFound(); 
+            return NotFound();
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User newUser)
-        {            
+        public async Task<ActionResult<UserDto>> PostUser(UserDto newUser)
+        {
             context.Add(newUser.GetEntity());
             await context.SaveChangesAsync();
-            return CreatedAtAction(nameof(PostUser), newUser);            
+            return CreatedAtAction(nameof(PostUser), newUser);
         }
 
         [HttpDelete("{name}")]
-        public async Task<ActionResult<User>> DeleteUser(string name)
+        public async Task<ActionResult<UserDto>> DeleteUser(string name)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Name == name);
-            if (user == null)              
-                return NotFound();            
+            if (user == null)
+                return NotFound();
 
             context.Users.Remove(user);
             await context.SaveChangesAsync();
-            return new User(user);
+            return new UserDto(user);
         }
     }
 }

@@ -1,22 +1,21 @@
-using DataLayer;
 
-namespace ProjectService.Models
+namespace ProjectService.DataTransferObjects
 {
-    public class User 
+    public class UserDto
     {
-        public string Name {get;set;}
+        public string Name { get; set; }
 
-        public User()
+        public UserDto()
         {
-            
+
         }
 
-        public User(string name)
+        public UserDto(string name)
         {
             Name = name;
         }
 
-        public User(UserEntity userEntity)
+        public UserDto(UserEntity userEntity)
         {
             Name = userEntity.Name;
         }

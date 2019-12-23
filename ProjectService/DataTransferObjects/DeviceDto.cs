@@ -1,17 +1,15 @@
-using DataLayer;
-
-namespace ProjectService.Models
+namespace ProjectService.DataTransferObjects
 {
-    public class Device 
+    public class DeviceDto
     {
-        public string SerialNumber {get;set;}
+        public string SerialNumber { get; set; }
 
-        public Device()
+        public DeviceDto()
         {
-            
+
         }
 
-        public Device(string serialNumber)
+        public DeviceDto(string serialNumber)
         {
             SerialNumber = serialNumber;
         }

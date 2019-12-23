@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using DataLayer;
 using Microsoft.AspNetCore.Mvc;
-using ProjectService.Models;
+using ProjectService.DataTransferObjects;
 
 namespace ProjectService.Controllers
 {
@@ -10,9 +10,9 @@ namespace ProjectService.Controllers
     public class DevicesController : ControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<Device>> PostDevice(Device newDevice)
+        public async Task<ActionResult<DeviceDto>> PostDevice(DeviceDto newDevice)
         {
-            using(var context = new ProjectContext())
+            using (var context = new ProjectContext())
             {
                 context.Add(newDevice.GetEntity());
                 await context.SaveChangesAsync();
