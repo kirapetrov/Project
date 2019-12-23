@@ -1,3 +1,4 @@
+using DataLayer.Entities;
 
 namespace ProjectService.DataTransferObjects
 {

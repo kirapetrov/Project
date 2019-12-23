@@ -1,3 +1,5 @@
+using DataLayer.Entities;
+
 namespace ProjectService.DataTransferObjects
 {
     public class DeviceDto
