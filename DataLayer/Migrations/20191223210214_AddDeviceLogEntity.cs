@@ -14,7 +14,7 @@ namespace DataLayer.Migrations
                     DeviceLogId = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DeviceId = table.Column<int>(nullable: false),
-                    Message = table.Column<string>(nullable: true)
+                    Message = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
