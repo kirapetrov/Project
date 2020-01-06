@@ -33,6 +33,10 @@ namespace ProjectService.Controllers
             if (newUser == null || string.IsNullOrWhiteSpace(newUser.Login))
                 return BadRequest();
 
+            var result = await context.Users.AnyAsync(x => x.Login == newUser.Login);
+            if (result)
+                return BadRequest();
+
             context.Add(newUser.GetEntity());
             await context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUser), new { login = newUser.Login }, newUser);

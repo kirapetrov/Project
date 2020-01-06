@@ -27,16 +27,17 @@ namespace ProjectService.Controllers
                 return BadRequest();
             }
 
-            var device = await context.Devices.FirstOrDefaultAsync(
-                x => x.SerialNumber == newDevice.DeviceSerialNumber);
-            if(device != null)            
-                return BadRequest();            
-
             var user = await context.Users.FirstOrDefaultAsync(x => x.Login == newDevice.UserLogin);
             if (user == null)
-                return NotFound();                        
+                return NotFound(); 
 
-            context.Add(newDevice.GetEntity());
+            var hasDevice = await context.Devices.AnyAsync(x => x.SerialNumber == newDevice.DeviceSerialNumber);
+            if(hasDevice)            
+                return BadRequest();                               
+
+            var deviceEntity = newDevice.GetEntity();
+            deviceEntity.User = user;
+            context.Add(deviceEntity);
             await context.SaveChangesAsync();
             return CreatedAtAction(nameof(PostDevice), newDevice);
         }
