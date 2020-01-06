@@ -4,7 +4,8 @@ namespace ProjectService.DataTransferObjects
 {
     public class DeviceDto
     {
-        public string SerialNumber { get; set; }
+        public string UserLogin { get; set; }
+        public string DeviceSerialNumber { get; set; }
 
         public DeviceDto()
         {
@@ -13,12 +14,12 @@ namespace ProjectService.DataTransferObjects
 
         public DeviceDto(string serialNumber)
         {
-            SerialNumber = serialNumber;
+            DeviceSerialNumber = serialNumber;
         }
 
         public DeviceEntity GetEntity()
         {
-            return new DeviceEntity(SerialNumber);
+            return new DeviceEntity(DeviceSerialNumber);
         }
     }
 }

@@ -22,8 +22,9 @@ namespace DataLayer.Entities
             Devices = new List<DeviceEntity>();
         }
 
-        public UserEntity(string name) : this()
+        public UserEntity(string login, string name) : this()
         {
+            Login = login;
             Name = name;
         }
     }

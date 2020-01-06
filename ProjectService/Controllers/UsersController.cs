@@ -17,10 +17,10 @@ namespace ProjectService.Controllers
             this.context = context;
         }
 
-        [HttpGet("{name}")]
-        public async Task<ActionResult<UserDto>> GetUser(string name)
+        [HttpGet("{login}")]
+        public async Task<ActionResult<UserDto>> GetUser(string login)
         {
-            var userEntity = await context.Users.FirstOrDefaultAsync(x => x.Name == name);
+            var userEntity = await context.Users.FirstOrDefaultAsync(x => x.Login == login);
             if (userEntity != null)
                 return new ActionResult<UserDto>(new UserDto(userEntity));
 
@@ -30,15 +30,18 @@ namespace ProjectService.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> PostUser(UserDto newUser)
         {
+            if (newUser == null || string.IsNullOrWhiteSpace(newUser.Login))
+                return BadRequest();
+
             context.Add(newUser.GetEntity());
             await context.SaveChangesAsync();
-            return CreatedAtAction(nameof(PostUser), newUser);
+            return CreatedAtAction(nameof(GetUser), new { login = newUser.Login }, newUser);
         }
 
         [HttpDelete("{name}")]
-        public async Task<ActionResult<UserDto>> DeleteUser(string name)
+        public async Task<ActionResult<UserDto>> DeleteUser(string login)
         {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Name == name);
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Name == login);
             if (user == null)
                 return NotFound();
 
