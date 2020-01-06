@@ -8,7 +8,12 @@ namespace DataLayer
         public DbSet<UserEntity> Users { get; set; }
 
         public DbSet<DeviceEntity> Devices { get; set; }
-        
+
+        public ProjectContext(DbContextOptions<ProjectContext> options)
+            : base(options)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserEntity>(

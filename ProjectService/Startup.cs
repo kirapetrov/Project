@@ -23,9 +23,6 @@ namespace ProjectService
             services.AddControllers();
             services.AddDbContext<ProjectContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("ProjectContext")));
-            //services.AddEntityFrameworkNpgsql()
-            //        .AddDbContext<ProjectContext>()
-            //        .BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
