@@ -9,6 +9,8 @@ namespace DataLayer
 
         public DbSet<DeviceEntity> Devices { get; set; }
 
+        public DbSet<DeviceLogEntity> DeviceLogs { get; set; }
+
         public ProjectContext(DbContextOptions<ProjectContext> options)
             : base(options)
         {

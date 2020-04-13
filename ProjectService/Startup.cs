@@ -20,6 +20,7 @@ namespace ProjectService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
             services.AddDbContext<ProjectContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("ProjectContext")));
@@ -31,11 +32,11 @@ namespace ProjectService
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseHttpsRedirection();
-
+            //app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
