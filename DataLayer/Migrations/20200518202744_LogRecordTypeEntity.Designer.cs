@@ -3,15 +3,17 @@ using System;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20200518202744_LogRecordTypeEntity")]
+    partial class LogRecordTypeEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,17 +55,12 @@ namespace DataLayer.Migrations
                     b.Property<int>("DeviceId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("LogRecordTypeId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Message")
                         .HasColumnType("text");
 
                     b.HasKey("DeviceLogId");
 
                     b.HasIndex("DeviceId");
-
-                    b.HasIndex("LogRecordTypeId");
 
                     b.ToTable("DeviceLogs");
                 });
@@ -154,12 +151,6 @@ namespace DataLayer.Migrations
                     b.HasOne("DataLayer.Entities.DeviceEntity", "Device")
                         .WithMany("DeviceLogs")
                         .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataLayer.Entities.LogRecordType", "LogRecordType")
-                        .WithMany()
-                        .HasForeignKey("LogRecordTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

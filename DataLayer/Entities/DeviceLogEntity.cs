@@ -14,6 +14,10 @@ namespace DataLayer.Entities
 
         public DeviceEntity Device { get; set; }
 
+        public int LogRecordTypeId { get; set; }
+
+        public LogRecordType LogRecordType { get; set; }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime DateTimeOccurrence { get; set; }
 
