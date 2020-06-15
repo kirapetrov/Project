@@ -15,15 +15,15 @@ namespace ProjectService.DataTransferObjects
             Name = name;
         }
 
-        public UserDto(UserEntity userEntity)
+        public UserDto(User userEntity)
         {
             Login = userEntity.Login;
             Name = userEntity.Name;
         }
 
-        public UserEntity GetEntity()
+        public User GetEntity()
         {
-            return new UserEntity(Login, Name);
+            return new User(Login, Name);
         }
     }
 }

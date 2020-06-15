@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectService.DataTransferObjects;
 
-namespace ProjectService.Controllers
+namespace ProjectService.Controllers.DeviceLogs
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -28,7 +27,7 @@ namespace ProjectService.Controllers
 
             int? deviceId = await context.Devices
                 .Where(x => x.SerialNumber == deviceSerialNumber)
-                .Select(x => x.DeviceId)
+                .Select(x => x.Id)
                 .FirstOrDefaultAsync();
 
             if(deviceId == null)
@@ -36,10 +35,10 @@ namespace ProjectService.Controllers
 
             var log = await context.DeviceLogs
                 .Where(x => x.DeviceId == deviceId)
+                .Include(x => x.LogRecordType)
                 .ToArrayAsync();
 
-            var logsDto = log.Select(x => new DeviceLogDto(x.Message, x.DateTimeOccurrence));
-            return new ActionResult<IEnumerable<DeviceLogDto>>(logsDto);
+            return new ActionResult<IEnumerable<DeviceLogDto>>(log.Select(x => x.ToDto()));
         }
     }
 }

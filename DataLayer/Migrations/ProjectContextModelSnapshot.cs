@@ -16,12 +16,12 @@ namespace DataLayer.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("DataLayer.Entities.DeviceEntity", b =>
+            modelBuilder.Entity("DataLayer.Entities.Device", b =>
                 {
-                    b.Property<int>("DeviceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -32,16 +32,16 @@ namespace DataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.HasKey("DeviceId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Devices");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.DeviceLogEntity", b =>
+            modelBuilder.Entity("DataLayer.Entities.DeviceLog", b =>
                 {
-                    b.Property<int>("DeviceLogId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -59,7 +59,7 @@ namespace DataLayer.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("text");
 
-                    b.HasKey("DeviceLogId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DeviceId");
 
@@ -70,7 +70,7 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entities.LogRecordType", b =>
                 {
-                    b.Property<int>("LogRecordTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -81,46 +81,46 @@ namespace DataLayer.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("integer");
 
-                    b.HasKey("LogRecordTypeId");
+                    b.HasKey("Id");
 
                     b.ToTable("LogRecordTypes");
 
                     b.HasData(
                         new
                         {
-                            LogRecordTypeId = 1,
+                            Id = 1,
                             Name = "Unknown",
                             Number = 1
                         },
                         new
                         {
-                            LogRecordTypeId = 2,
+                            Id = 2,
                             Name = "Debug",
                             Number = 2
                         },
                         new
                         {
-                            LogRecordTypeId = 3,
+                            Id = 3,
                             Name = "Info",
                             Number = 3
                         },
                         new
                         {
-                            LogRecordTypeId = 4,
+                            Id = 4,
                             Name = "Warning",
                             Number = 4
                         },
                         new
                         {
-                            LogRecordTypeId = 5,
+                            Id = 5,
                             Name = "Error",
                             Number = 5
                         });
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.UserEntity", b =>
+            modelBuilder.Entity("DataLayer.Entities.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -132,7 +132,7 @@ namespace DataLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.HasIndex("Login")
                         .IsUnique();
@@ -140,18 +140,18 @@ namespace DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.DeviceEntity", b =>
+            modelBuilder.Entity("DataLayer.Entities.Device", b =>
                 {
-                    b.HasOne("DataLayer.Entities.UserEntity", "User")
+                    b.HasOne("DataLayer.Entities.User", "User")
                         .WithMany("Devices")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.DeviceLogEntity", b =>
+            modelBuilder.Entity("DataLayer.Entities.DeviceLog", b =>
                 {
-                    b.HasOne("DataLayer.Entities.DeviceEntity", "Device")
+                    b.HasOne("DataLayer.Entities.Device", "Device")
                         .WithMany("DeviceLogs")
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)

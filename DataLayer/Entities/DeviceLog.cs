@@ -4,15 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLayer.Entities
 {
-    [Table("DeviceLogs")]
-    public class DeviceLogEntity
+    public class DeviceLog
     {
         [Key]
-        public int DeviceLogId { get; set; }
+        public int Id { get; set; }
 
         public int DeviceId { get; set; }
 
-        public DeviceEntity Device { get; set; }
+        public Device Device { get; set; }
 
         public int LogRecordTypeId { get; set; }
 
@@ -20,12 +19,12 @@ namespace DataLayer.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime DateTimeOccurrence { get; set; }
-
+        
         public string Message { get; set; }
 
-        public DeviceLogEntity() { }
+        public DeviceLog() { }
 
-        public DeviceLogEntity(string message)
+        public DeviceLog(string message)
         {
             Message = message;
         }

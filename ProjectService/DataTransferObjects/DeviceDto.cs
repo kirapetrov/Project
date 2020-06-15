@@ -17,9 +17,9 @@ namespace ProjectService.DataTransferObjects
             DeviceSerialNumber = serialNumber;
         }
 
-        public DeviceEntity GetEntity()
+        public Device GetEntity()
         {
-            return new DeviceEntity(DeviceSerialNumber);
+            return new Device(DeviceSerialNumber);
         }
     }
 }
