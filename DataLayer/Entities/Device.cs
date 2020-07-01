@@ -8,9 +8,10 @@ namespace DataLayer.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public string SerialNumber { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public User User { get; set; }
 

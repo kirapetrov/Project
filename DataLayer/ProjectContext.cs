@@ -23,6 +23,11 @@ namespace DataLayer
             modelBuilder.Entity<User>(
                 entity => { entity.HasIndex(e => e.Login).IsUnique(); });
 
+            modelBuilder.Entity<Device>()
+                .HasOne(a => a.User)
+                .WithMany(b => b.Devices)
+                .IsRequired(false);
+
             modelBuilder.Entity<LogRecordType>().HasData(
                 new LogRecordType {Id = 1, Name = "Unknown",  Number = 1},
                 new LogRecordType {Id = 2, Name = "Debug",  Number = 2}, 

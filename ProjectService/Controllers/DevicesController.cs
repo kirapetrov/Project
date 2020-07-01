@@ -20,23 +20,14 @@ namespace ProjectService.Controllers
         [HttpPost]
         public async Task<ActionResult<DeviceDto>> PostDevice(DeviceDto newDevice)
         {
-            if (newDevice == null ||
-                string.IsNullOrWhiteSpace(newDevice.UserLogin) ||
-                string.IsNullOrWhiteSpace(newDevice.DeviceSerialNumber))
-            {
-                return BadRequest();
-            }
-
-            var user = await context.Users.FirstOrDefaultAsync(x => x.Login == newDevice.UserLogin);
-            if (user == null)
-                return NotFound(); 
+            if (string.IsNullOrWhiteSpace(newDevice?.DeviceSerialNumber))            
+                return BadRequest();            
 
             var hasDevice = await context.Devices.AnyAsync(x => x.SerialNumber == newDevice.DeviceSerialNumber);
             if(hasDevice)            
                 return BadRequest();                               
 
             var deviceEntity = newDevice.GetEntity();
-            deviceEntity.User = user;
             context.Add(deviceEntity);
             await context.SaveChangesAsync();
             return CreatedAtAction(nameof(PostDevice), newDevice);
